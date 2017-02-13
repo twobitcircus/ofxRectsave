@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-  polysave.setup();
+  rectsave.setup();
 }
 
 //--------------------------------------------------------------
@@ -15,8 +15,24 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
   ofBackground(0);
-  ofRectangle r = polysave.getRectangleByName("my_rect");
-  ofLog() << r;
+
+  ofRectangle bounds(60, 90, ofGetWidth()/2, ofGetHeight()/2);
+  rectsave.setBounds(bounds);
+
+  ofPushStyle();
+  ofSetColor(ofColor::red);
+  ofNoFill();
+  ofDrawRectangle(bounds);
+  ofPopStyle();
+
+  ofPushMatrix();
+  ofTranslate(bounds.getTopLeft());
+  ofScale(bounds.getWidth()/ofGetWidth(), bounds.getHeight()/ofGetHeight());
+  ofSetColor(ofColor::red);
+  ofDrawLine(0,0, ofGetWidth(), ofGetHeight());
+  ofDrawLine(ofGetWidth(), 0, 0, ofGetHeight());
+
+  ofRectangle r = rectsave.getRectangleByName("test");
   ofPolyline p;
   for (int x=0; x<r.width; x++) {
     int y = r.height*ofNoise(ofGetElapsedTimef(), x/100.0);
@@ -28,17 +44,17 @@ void ofApp::draw(){
   p.draw();
   ofPopMatrix();
 
-  ofPolyline path = polysave.getPolylineByName("my_path");
-  float t = ofWrap(ofMap(ofGetElapsedTimef(), 0, 4, 0, 1), 0, 1);
-  ofPushMatrix();
-  ofTranslate(path.getPointAtPercent(t));
-  ofCircle(0, 0, 8);
   ofPopMatrix();
 
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+  switch (key) {
+    case '|':
+      rectsave.toggleActive();
+      break;
+  }
 
 }
 

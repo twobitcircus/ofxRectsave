@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxPolysave.h"
+#include "ofxRectsave.h"
 
 class ofApp : public ofBaseApp{
   public:
@@ -19,5 +19,5 @@ class ofApp : public ofBaseApp{
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 
-    ofxPolysave polysave;
+    ofxRectsave rectsave;
 };
